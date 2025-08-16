@@ -11,7 +11,7 @@ import SwiftUI
 struct ThmanyaTaskApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeModuleFactory.makeHomeModule()
         }
     }
 }

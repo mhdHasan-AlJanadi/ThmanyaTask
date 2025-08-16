@@ -6,19 +6,40 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView: View {
+    @StateObject var viewModel: HomeViewModel
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, world!")
+            Text("مرحبا العالم")
+                .font(.custom("IBMPlexSansArabic-Light", size: 34))
         }
         .padding()
     }
 }
 
-#Preview {
-    ContentView()
-}
+
+
+
+
+
+
+
+
+
+/*
+ IBMPlexSansArabic
+ IBMPlexSansArabic-Thin
+ IBMPlexSansArabic-ExtraLight
+ IBMPlexSansArabic-Light
+ IBMPlexSansArabic-Text
+ IBMPlexSansArabic-Medium
+ IBMPlexSansArabic-SemiBold
+ IBMPlexSansArabic-Bold
+ */
