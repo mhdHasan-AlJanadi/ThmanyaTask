@@ -50,51 +50,22 @@ class HomeViewModel: ObservableObject {
         isDataLoaded = false
         isLoading = false
     }
-    /*
-    func fetchData(page: Int) {
-        isLoading = true
-        error = nil
-        
-        
-        useCase.getAppData(page: page)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self else {return}
-                switch completion{
-                case .failure(let error):
-                    self.error = error.localizedDescription
-                case.finished:
-                    isDataLoaded = true
-                }
-                self.isLoading = false
-            } receiveValue: { [weak self] appData in
-                guard let self else {return}
-                self.sections.append(contentsOf: appData.sections)
-                self.totalPages = appData.pagination?.totalPages ?? 10
-                currentPage = page
-                isDataLoaded = true
-            }
-            .store(in: &cancellable)
-
-    }
-     */
+   
     @MainActor
     func fetchData(page: Int) async {
         isLoading = true
         error = nil
         
         do {
-            // استدعاء Use Case باستخدام `try await`
-            // لا حاجة لـ .sink أو .receive(on:)
             let appData = try await useCase.getAppData(page: page)
             
-            // تحديث الخصائص بعد نجاح الطلب
+            
             self.sections.append(contentsOf: appData.sections)
             self.totalPages = appData.pagination?.totalPages ?? 10
             currentPage = page
             isDataLoaded = true
         } catch {
-            // التعامل مع الخطأ
+            
             self.error = error.localizedDescription
         }
         
