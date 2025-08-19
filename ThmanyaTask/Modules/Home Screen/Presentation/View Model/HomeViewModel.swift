@@ -8,6 +8,7 @@
 import Combine
 import UIKit
 
+@MainActor
 class HomeViewModel: ObservableObject {
     
     private let useCase: HomeUseCaseProtocol

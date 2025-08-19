@@ -18,25 +18,19 @@ final class MockHomeUseCase: HomeUseCaseProtocol {
     var responses: [Int: AppResponse] = [:]
     var error: SessionDataTaskError?
     
-    func getAppData(page: Int) -> AnyPublisher<AppResponse, SessionDataTaskError> {
+    func getAppData(page: Int) async throws -> ThmanyaTask.AppResponse {
         calls.append(page)
-        
-        if let error { return Fail(error: error).eraseToAnyPublisher() }
-        
+        if let error { throw SessionDataTaskError.requestFailed }
         guard let resp = responses[page] else {
-            return Fail(error: .noData).eraseToAnyPublisher()
+            throw SessionDataTaskError.requestFailed
         }
-        
-        
-        return Just(resp)
-            .setFailureType(to: SessionDataTaskError.self)
-            .eraseToAnyPublisher()
+        return resp
     }
 }
 
 func makeSections(start: Int, count: Int) -> [Section] {
     (start..<(start+count)).map { i in
-        Section(name: "S\(i)", type: nil, contentType: nil, order: i, content: [])
+        Section(name: "S\(i)", type: nil, contentType: nil, order: StringOrInt(stringValue: "1"), content: [])
     }
 }
 
@@ -50,15 +44,15 @@ func makeResponse(page: Int, totalPages: Int, next: String?, count: Int, start: 
 final class HomeViewModelTests: XCTestCase {
     private var cancellables: Set<AnyCancellable> = []
     
-    func testFetchInitialLoadsFirstPage() {
+    func testFetchInitialLoadsFirstPage() async {
         DLog("Test FetchInitialLoadsFirstPage")
         let mock = MockHomeUseCase()
         mock.responses[1] = makeResponse(page: 1, totalPages: 3, next: "cursor-2", count: 10, start: 0)
         
-        let vm = HomeViewModel(useCase: mock)
+        let vm = await HomeViewModel(useCase: mock)
         
         let exp = expectation(description: "Loaded first page")
-        vm.$sections
+        await vm.$sections
             .drop(while: { $0.isEmpty })
             .first()
             .sink { sections in
@@ -67,27 +61,29 @@ final class HomeViewModelTests: XCTestCase {
             }
             .store(in: &cancellables)
         
-        vm.fetchFirstTime()
+        await vm.fetchFirstTime()
         wait(for: [exp], timeout: 1.0)
         XCTAssertEqual(mock.calls, [1])
     }
     
-    func testLoadMoreAt10thItemAppends() {
+    func testLoadMoreAt10thItemAppends() async {
         let mock = MockHomeUseCase()
         mock.responses[1] = makeResponse(page: 1, totalPages: 3, next: "cursor-2", count: 10, start: 0)
         mock.responses[2] = makeResponse(page: 2, totalPages: 3, next: "cursor-3", count: 10, start: 10)
 
-        let vm = HomeViewModel(useCase: mock)
+        let vm = await HomeViewModel(useCase: mock)
 
         let exp = expectation(description: "Loaded 20 items")
         var triggeredNext = false
 
-        vm.$sections
+        await vm.$sections
             .receive(on: DispatchQueue.main)
             .sink { sections in
                 if sections.count == 10 && !triggeredNext {
                     triggeredNext = true
-                    vm.getNextPage(index: 9)
+                    Task { @MainActor in
+                        await vm.getNextPage(index: 9)
+                    }
                 }
                 if sections.count == 20 {
                     exp.fulfill()
@@ -95,10 +91,12 @@ final class HomeViewModelTests: XCTestCase {
             }
             .store(in: &cancellables)
 
-        vm.fetchFirstTime()
+        await vm.fetchFirstTime()
         wait(for: [exp], timeout: 1.0)
 
-        XCTAssertEqual(vm.sections.count, 20)
+        await MainActor.run {
+            XCTAssertEqual(vm.sections.count, 20)
+        }
         XCTAssertEqual(mock.calls, [1, 2])
     }
     
@@ -106,30 +104,35 @@ final class HomeViewModelTests: XCTestCase {
         let mock = MockHomeUseCase()
         mock.responses[1] = makeResponse(page: 1, totalPages: 1, next: nil, count: 10, start: 0)
 
-        let vm = HomeViewModel(useCase: mock)
-        vm.fetchFirstTime()
+        let vm = await HomeViewModel(useCase: mock)
+        await vm.fetchFirstTime()
 
         let _ = await vm.$sections.values.first { !$0.isEmpty }
 
-        XCTAssertEqual(vm.sections.count, 10)
+        await MainActor.run {
+            XCTAssertEqual(vm.sections.count, 10)
+        }
 
-        vm.getNextPage(index: 9)
+        await vm.getNextPage(index: 9)
 
         await Task.yield()
 
         XCTAssertEqual(mock.calls, [1])
-        XCTAssertEqual(vm.sections.count, 10)
+        
+        await MainActor.run {
+            XCTAssertEqual(vm.sections.count, 10)
+        }
     }
     
-    func testErrorPropagates() {
+    func testErrorPropagates() async {
         let mock = MockHomeUseCase()
         mock.error = .noData
 
-        let vm = HomeViewModel(useCase: mock)
+        let vm = await HomeViewModel(useCase: mock)
 
         let exp = expectation(description: "Error surfaced")
 
-        vm.$error
+        await vm.$error
             .compactMap { $0 }
             .first()
             .sink { err in
@@ -138,7 +141,7 @@ final class HomeViewModelTests: XCTestCase {
             }
             .store(in: &cancellables)
 
-        vm.fetchFirstTime()
+        await vm.fetchFirstTime()
         wait(for: [exp], timeout: 1.0)
     }
 }

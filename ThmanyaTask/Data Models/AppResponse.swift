@@ -51,7 +51,6 @@ enum ContentType: String, Codable {
 }
 
 
-// نوع enum يقبل String أو Int
 enum StringOrInt: Codable {
     case string(String)
     case int(Int)
@@ -67,6 +66,14 @@ enum StringOrInt: Codable {
             throw DecodingError.typeMismatch(StringOrInt.self,
                 DecodingError.Context(codingPath: decoder.codingPath,
                     debugDescription: "Value is not a String or Int"))
+        }
+    }
+    
+    init(stringValue: String) {
+        if let intValue = Int(stringValue) {
+            self = .int(intValue)
+        } else {
+            self = .string(stringValue)
         }
     }
     
@@ -103,6 +110,14 @@ enum StringOrInt: Codable {
 enum StringOrDouble: Codable {
     case string(String)
     case double(Double)
+    
+    init(stringValue: String) {
+        if let doubleValue = Double(stringValue) {
+            self = .double(doubleValue)
+        } else {
+            self = .string(stringValue)
+        }
+    }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
