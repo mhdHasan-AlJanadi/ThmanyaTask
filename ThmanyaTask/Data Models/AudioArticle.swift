@@ -11,7 +11,7 @@ struct AudioArticle: Codable {
     var authorName: String?
     var description: String?
     var avatarURL: String?
-    var duration: Int?
+    var duration: StringOrInt?
     var releaseDate: String?
     var score: Int?
     

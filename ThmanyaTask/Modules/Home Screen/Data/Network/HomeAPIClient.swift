@@ -6,23 +6,21 @@
 //
 
 import Foundation
-import Combine
 
 protocol HomeAPIClientProtocol {
-    func getAppData() -> AnyPublisher<AppResponse, SessionDataTaskError>
+    func getAppData(page: Int) async throws -> AppResponse
 }
 
-class HomeAPIClient {
-    private let client: BaseAPIClientProtocol
+class HomeAPIClient: HomeAPIClientProtocol {
+    private let client: BaseAPIClientProtocolNew
     
-    init(client: BaseAPIClientProtocol) {
+    init(client: BaseAPIClientProtocolNew) {
         self.client = client
     }
-}
-
-extension HomeAPIClient: HomeAPIClientProtocol {    
-    func getAppData() -> AnyPublisher<AppResponse, SessionDataTaskError>{
-        let dataRequest = HomeAPIRequest.getAppData
-        return client.perform(dataRequest.asURLRequest())
+    
+    func getAppData(page: Int) async throws -> AppResponse {
+        let dataRequest = HomeAPIRequest.getAppData(page: page)
+        let urlRequest = try dataRequest.asURLRequestNew()
+        return try await client.perform(urlRequest)
     }
 }

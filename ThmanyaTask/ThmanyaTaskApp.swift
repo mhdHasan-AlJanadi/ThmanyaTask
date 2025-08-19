@@ -11,7 +11,26 @@ import SwiftUI
 struct ThmanyaTaskApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeModuleFactory.makeHomeModule()
+            MainTabBar()
         }
     }
 }
+
+
+struct MainTabBar: View {
+    var body: some View {
+        TabView {
+            HomeModuleFactory.makeHomeModule()
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
+                }
+            SearchModuleFactory.makeHomeModule()
+                .tabItem {
+                    Image(systemName: "magnifyingglass")
+                    Text("Search")
+                }
+        }
+    }
+}
+

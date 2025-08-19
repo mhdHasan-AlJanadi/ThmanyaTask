@@ -24,10 +24,12 @@ extension APIRequestConfiguration {
         return headers
     }
     
-    func asURLRequest() -> URLRequest {
+    
+    
+    
+    func asURLRequestNew() throws -> URLRequest {
         var urlRequest: URLRequest
         
-        // If path is a full URL, percent encode and create URLRequest from it
         if path.lowercased().hasPrefix("http://") || path.lowercased().hasPrefix("https://") {
             if queryParams == nil {
                 if let encodedPath = path.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
@@ -36,7 +38,7 @@ extension APIRequestConfiguration {
                 } else if let url = URL(string: path) {
                     urlRequest = URLRequest(url: url)
                 } else {
-                    fatalError("Invalid URL: \(path)")
+                    throw URLError(.badURL)
                 }
             } else {
                 guard var urlComponents = URLComponents(string: path) else {
@@ -53,7 +55,7 @@ extension APIRequestConfiguration {
             }
             
         } else {
-            // Otherwise, use URLComponents to create the URL (adding a "/" before path)
+        
             var components = self.components
             components.path = "/" + path
             guard let url = components.url else {
@@ -62,16 +64,16 @@ extension APIRequestConfiguration {
             urlRequest = URLRequest(url: url)
         }
         
-        // Set HTTP method
+        
         urlRequest.httpMethod = method.rawValue
         
-        // Add headers (merging basic headers with request-specific headers)
+        
         let requestHeaders = baseHeaders + headers
         requestHeaders.forEach { (headerKey, headerValue) in
             urlRequest.addValue(headerValue, forHTTPHeaderField: headerKey)
         }
         
-        // Set HTTP body if parameters exist
+        
         if let parameters = parameters {
             do {
                 urlRequest.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])

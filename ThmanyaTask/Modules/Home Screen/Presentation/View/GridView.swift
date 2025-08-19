@@ -13,33 +13,20 @@ struct GridView: View {
     var body: some View {
         VStack(alignment: .leading){
             Text(section.name ?? "__")
-                .foregroundColor(.orange)
+                .foregroundColor(ThemeApp.colors.boldTitle)
                 .font(.custom("IBMPlexSansArabic-SemiBold", size: 16))
-//                .foregroundStyle(.orange)
-            ScrollView(.horizontal){
-                LazyHStack(spacing: 10){
-                    ForEach(Array(section.content.enumerated()), id: \.offset){ content in
-                        switch content.element{
-                        case .podcast(let podcast):
-                            Text(podcast.name ?? "__")
-                                .foregroundColor(.gray)
-                                .font(.custom("IBMPlexSansArabic-Light", size: 16))
-                        case .episode(let episode):
-                            Text(episode.name ?? "__")
-                                .foregroundColor(.red)
-                                .font(.custom("IBMPlexSansArabic-ExtraLight", size: 16))
-                        case .audioBook(let audioBook):
-                            Text(audioBook.name ?? "__")
-                                .foregroundColor(.blue)
-                                .font(.custom("IBMPlexSansArabic-SemiBold", size: 16))
-                        case .audioArticle(let audioArticle):
-                            Text(audioArticle.name ?? "__")
-                                .foregroundStyle(.green)
-                                .font(.custom("IBMPlexSansArabic-Thin", size: 16))
-                                
-                        }
-                    }
-                }
+            
+            switch section.type {
+            case "square":
+                SquareLayoutView(content: section.content)
+            case "big_square","big square":
+                BigSquareLayoutView(content: section.content)
+            case "2_lines_grid":
+                TwoLinesGridLayoutView(content: section.content)
+            case "queue":
+                QueueLayoutView(content: section.content)
+            default:
+                SquareLayoutView(content: section.content)
             }
         }
     }

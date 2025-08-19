@@ -5,18 +5,17 @@
 //  Created by MACBOOK on 16/08/2025.
 //
 
-import Combine
 
-class HomeUseCase : HomeUseCaseProtocol{
-    
+
+
+class HomeUseCase: HomeUseCaseProtocol {
     private let homeRepository: HomeRepositoryProtocol
     
     init(homeRepository: HomeRepositoryProtocol) {
         self.homeRepository = homeRepository
     }
-    func getAppData() -> AnyPublisher<[Section], SessionDataTaskError>{
-        return homeRepository.getAppData()
-            .mapError { $0 }
-            .eraseToAnyPublisher()
+    
+    func getAppData(page: Int) async throws -> AppResponse {
+        return try await homeRepository.getAppData(page: page)
     }
 }

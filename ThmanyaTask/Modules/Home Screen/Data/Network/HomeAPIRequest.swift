@@ -6,7 +6,7 @@
 //
 
 enum HomeAPIRequest: APIRequestConfiguration {
-    case getAppData
+    case getAppData(page: Int)
     
     var method: HTTPMethods {
         switch self {
@@ -33,7 +33,10 @@ enum HomeAPIRequest: APIRequestConfiguration {
     }
     
     var queryParams: [String : Any]? {
-        nil
+        switch self {
+        case .getAppData(let page):
+            return page != 1 ? ["page": page] : nil
+        }
     }
     
     var files: [String]? {

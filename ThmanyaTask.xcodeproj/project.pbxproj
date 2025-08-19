@@ -8,10 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		FA6DBF152E50E6CB00154EB9 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FA6DBF142E50E6CB00154EB9 /* Kingfisher */; };
+		FA6DBF1A2E51BFA900154EB9 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = FA6DBF192E51BFA900154EB9 /* Shimmer */; };
+		FA6DC0582E538E4D00154EB9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6DC0572E538E4D00154EB9 /* XCTest.framework */; platformFilter = ios; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FA6DBF632E53761D00154EB9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA6DBEA32E4F994B00154EB9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA6DBEAA2E4F994B00154EB9;
+			remoteInfo = ThmanyaTask;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		FA6DBEAB2E4F994B00154EB9 /* ThmanyaTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThmanyaTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA6DBF5F2E53761D00154EB9 /* ThmanyaTaskTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThmanyaTaskTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA6DC0572E538E4D00154EB9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -33,6 +47,11 @@
 			path = ThmanyaTask;
 			sourceTree = "<group>";
 		};
+		FA6DBF602E53761D00154EB9 /* ThmanyaTaskTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ThmanyaTaskTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,7 +59,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA6DBF1A2E51BFA900154EB9 /* Shimmer in Frameworks */,
 				FA6DBF152E50E6CB00154EB9 /* Kingfisher in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA6DBF5C2E53761D00154EB9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA6DC0582E538E4D00154EB9 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +79,8 @@
 			isa = PBXGroup;
 			children = (
 				FA6DBEAD2E4F994B00154EB9 /* ThmanyaTask */,
+				FA6DBF602E53761D00154EB9 /* ThmanyaTaskTests */,
+				FA6DC0562E538E4D00154EB9 /* Frameworks */,
 				FA6DBEAC2E4F994B00154EB9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,8 +89,17 @@
 			isa = PBXGroup;
 			children = (
 				FA6DBEAB2E4F994B00154EB9 /* ThmanyaTask.app */,
+				FA6DBF5F2E53761D00154EB9 /* ThmanyaTaskTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FA6DC0562E538E4D00154EB9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FA6DC0572E538E4D00154EB9 /* XCTest.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -84,10 +123,34 @@
 			name = ThmanyaTask;
 			packageProductDependencies = (
 				FA6DBF142E50E6CB00154EB9 /* Kingfisher */,
+				FA6DBF192E51BFA900154EB9 /* Shimmer */,
 			);
 			productName = ThmanyaTask;
 			productReference = FA6DBEAB2E4F994B00154EB9 /* ThmanyaTask.app */;
 			productType = "com.apple.product-type.application";
+		};
+		FA6DBF5E2E53761D00154EB9 /* ThmanyaTaskTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA6DBF652E53761D00154EB9 /* Build configuration list for PBXNativeTarget "ThmanyaTaskTests" */;
+			buildPhases = (
+				FA6DBF5B2E53761D00154EB9 /* Sources */,
+				FA6DBF5C2E53761D00154EB9 /* Frameworks */,
+				FA6DBF5D2E53761D00154EB9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA6DBF642E53761D00154EB9 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				FA6DBF602E53761D00154EB9 /* ThmanyaTaskTests */,
+			);
+			name = ThmanyaTaskTests;
+			packageProductDependencies = (
+			);
+			productName = ThmanyaTaskTests;
+			productReference = FA6DBF5F2E53761D00154EB9 /* ThmanyaTaskTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -102,6 +165,10 @@
 					FA6DBEAA2E4F994B00154EB9 = {
 						CreatedOnToolsVersion = 16.4;
 					};
+					FA6DBF5E2E53761D00154EB9 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = FA6DBEAA2E4F994B00154EB9;
+					};
 				};
 			};
 			buildConfigurationList = FA6DBEA62E4F994B00154EB9 /* Build configuration list for PBXProject "ThmanyaTask" */;
@@ -110,11 +177,13 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = FA6DBEA22E4F994B00154EB9;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				FA6DBF132E50E6CB00154EB9 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				FA6DBF182E51BFA900154EB9 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FA6DBEAC2E4F994B00154EB9 /* Products */;
@@ -122,12 +191,20 @@
 			projectRoot = "";
 			targets = (
 				FA6DBEAA2E4F994B00154EB9 /* ThmanyaTask */,
+				FA6DBF5E2E53761D00154EB9 /* ThmanyaTaskTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		FA6DBEA92E4F994B00154EB9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA6DBF5D2E53761D00154EB9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -144,7 +221,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FA6DBF5B2E53761D00154EB9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FA6DBF642E53761D00154EB9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA6DBEAA2E4F994B00154EB9 /* ThmanyaTask */;
+			targetProxy = FA6DBF632E53761D00154EB9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		FA6DBEB42E4F994C00154EB9 /* Debug */ = {
@@ -207,6 +299,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -264,6 +357,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -328,6 +422,42 @@
 			};
 			name = Release;
 		};
+		FA6DBF662E53761D00154EB9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GHWM9XKMJV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.proplab.ThmanyaTaskTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ThmanyaTask.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ThmanyaTask";
+			};
+			name = Debug;
+		};
+		FA6DBF672E53761D00154EB9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GHWM9XKMJV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.proplab.ThmanyaTaskTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ThmanyaTask.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ThmanyaTask";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -349,6 +479,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		FA6DBF652E53761D00154EB9 /* Build configuration list for PBXNativeTarget "ThmanyaTaskTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA6DBF662E53761D00154EB9 /* Debug */,
+				FA6DBF672E53761D00154EB9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -360,6 +499,14 @@
 				minimumVersion = 8.5.0;
 			};
 		};
+		FA6DBF182E51BFA900154EB9 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/markiv/SwiftUI-Shimmer";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -367,6 +514,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA6DBF132E50E6CB00154EB9 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		FA6DBF192E51BFA900154EB9 /* Shimmer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA6DBF182E51BFA900154EB9 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */;
+			productName = Shimmer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

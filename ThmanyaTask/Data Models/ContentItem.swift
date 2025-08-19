@@ -14,7 +14,7 @@ enum ContentItem: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         
-        // Try to decode as different types based on available keys
+        
         if let podcast = try? container.decode(Podcast.self) {
             self = .podcast(podcast)
         } else if let episode = try? container.decode(Episode.self) {
@@ -51,7 +51,7 @@ enum ContentItem: Codable {
 }
 
 extension ContentItem {
-    // Helper computed properties to access common properties
+    
     var name: String {
         switch self {
         case .podcast(let podcast):
@@ -65,16 +65,60 @@ extension ContentItem {
         }
     }
     
-    var duration: Int {
+    var duration: String {
         switch self {
         case .podcast(let podcast):
-            return podcast.duration ?? 0
+            return getDurationFormat(duration: podcast.duration ?? .int(0))
         case .episode(let episode):
-            return episode.duration ?? 0
+            return getDurationFormat(duration: episode.duration ?? .int(0))
         case .audioBook(let audioBook):
-            return audioBook.duration ?? 0
+            return getDurationFormat(duration: audioBook.duration ?? .int(0))
         case .audioArticle(let audioArticle):
-            return audioArticle.duration ?? 0
+            return getDurationFormat(duration: audioArticle.duration ?? .int(0))
+        }
+    }
+    
+    var avatarURL: String {
+        switch self {
+        case .podcast(let podcast):
+            return podcast.avatarURL ?? "__"
+        case .episode(let episode):
+            return episode.avatarURL ?? "__"
+        case .audioBook(let audioBook):
+            return audioBook.avatarURL ?? "__"
+        case .audioArticle(let audioArticle):
+            return audioArticle.avatarURL ?? "__"
+        }
+    }
+    
+    func getDurationFormat(duration: StringOrInt) -> String{
+        var intDuration = 0
+        switch duration {
+        case.int(let int):
+            intDuration = int
+        case .string(let str):
+            intDuration = Int(str) ?? 0
+        }
+        let hours = intDuration / 3600
+        let minutes = (intDuration % 3600) / 60
+        if hours <= 0{
+            return "\(minutes) m"
+        } else if minutes <= 0 {
+            return "\(hours) h"
+        } else {
+            return "\(hours) h \(minutes) m"
+        }
+    }
+}
+
+
+extension ContentItem {
+    var contentTypeName: String {
+        switch self {
+        case .podcast: return "Podcast"
+        case .episode: return "Episode"
+        case .audioBook: return "Audiobook"
+        case .audioArticle: return "Article"
         }
     }
 }

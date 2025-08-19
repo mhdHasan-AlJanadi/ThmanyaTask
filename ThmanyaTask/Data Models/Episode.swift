@@ -13,7 +13,7 @@ struct Episode : Codable {
     var podcastName : String?
     var authorName : String?
     var description : String?
-    var duration : Int?
+    var duration : StringOrInt?
     var avatarURL : String?
     var separatedAudioURL : String?
     var audioURL : String?

@@ -9,7 +9,7 @@ import Foundation
 
 class HomeModuleFactory {
     static func makeHomeModule() -> HomeView {
-        let baseAPIClient = BaseAPIClient()
+        let baseAPIClient = BaseAPIClientNew()
         let homeClient = HomeAPIClient(client: baseAPIClient)
         let homeRepository = HomeRepository(client: homeClient)
         let useCase = HomeUseCase(

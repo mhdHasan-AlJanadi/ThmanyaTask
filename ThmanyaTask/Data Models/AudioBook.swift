@@ -11,7 +11,7 @@ struct AudioBook: Codable {
     var authorName: String?
     var description: String?
     var avatarURL: String?
-    var duration: Int?
+    var duration: StringOrInt?
     var language: String?
     var releaseDate: String?
     var score: Int?

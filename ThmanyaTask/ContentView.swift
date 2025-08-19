@@ -23,23 +23,3 @@ struct ContentView: View {
         .padding()
     }
 }
-
-
-
-
-
-
-
-
-
-
-/*
- IBMPlexSansArabic
- IBMPlexSansArabic-Thin
- IBMPlexSansArabic-ExtraLight
- IBMPlexSansArabic-Light
- IBMPlexSansArabic-Text
- IBMPlexSansArabic-Medium
- IBMPlexSansArabic-SemiBold
- IBMPlexSansArabic-Bold
- */

@@ -10,12 +10,12 @@ struct Podcast: Codable{
     var name: String?
     var description: String?
     var avatarURL: String?
-    var episodeCount: Int?
-    var duration: Int?
+    var episodeCount: StringOrInt?
+    var duration: StringOrInt?
     var language: String?
-    var priority: Int?
-    var popularityScore: Int?
-    var score: Double?
+    var priority: StringOrInt?
+    var popularityScore: StringOrInt?
+    var score: StringOrDouble?
     
     enum CodingKeys: String, CodingKey {
         case podcastId = "podcast_id"
@@ -29,4 +29,6 @@ struct Podcast: Codable{
         case popularityScore
         case score
     }
+    
+   
 }

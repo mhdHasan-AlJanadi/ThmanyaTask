@@ -4,22 +4,20 @@
 //
 //  Created by MACBOOK on 16/08/2025.
 //
+//
 
-import Combine
 
-class HomeRepository {
+
+class HomeRepository: HomeRepositoryProtocol {
     private let client: HomeAPIClientProtocol
     
     init(client: HomeAPIClientProtocol) {
         self.client = client
     }
-}
-
-extension HomeRepository: HomeRepositoryProtocol {
-    func getAppData() -> AnyPublisher<[Section], SessionDataTaskError>{
-        return client.getAppData()
-            .mapError { $0 }
-            .map { $0.sections }
-            .eraseToAnyPublisher()
+    
+    func getAppData(page: Int) async throws -> AppResponse {
+        let response = try await client.getAppData(page: page)
+        return response
     }
 }
+
